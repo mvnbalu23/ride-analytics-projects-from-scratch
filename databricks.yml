@@ -1,0 +1,30 @@
+bundle:
+  name: realtime-ride-analytics
+
+variables:
+  alert_email:
+    description: "Email to notify on job failure"
+    default: ""
+  sp_name:
+    description: "Service principal name for prod deployments"
+    default: ""
+  landing_volume_path:
+    description: "Unity Catalog Volume path where the simulator writes ride event files"
+    default: "/Volumes/databrickslearning/realtime/landing"
+  catalog:
+    description: "Unity Catalog catalog name"
+    default: "databrickslearning"
+  warehouse_id:
+    description: "SQL warehouse ID for the dashboard"
+    default: "2ba8f206cc08871e"
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      host: https://adb-7405611541841479.19.azuredatabricks.net/
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
